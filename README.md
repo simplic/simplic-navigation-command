@@ -1,2 +1,5 @@
-# simplic-navigation-command
-Simplic command based navigation system
+# Simplic navigation command
+
+This repository contains everything about the simplic navigation command system. The system allows to navigate within an application using commands and parameter. The search engine contains an intelligent suggestion algorithm.
+
+To register commands use `INavigationCommandService`.
