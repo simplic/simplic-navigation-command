@@ -43,9 +43,15 @@
   <ItemGroup>
     <Compile Include="Interface\INavigationCommandSearchService.cs" />
     <Compile Include="Interface\INavigationCommandService.cs" />
+    <Compile Include="Model\ExecuteCommandEventArgs.cs" />
+    <Compile Include="Model\ExecuteCommandResult.cs" />
     <Compile Include="Model\NavigationCommandSearchResult.cs" />
     <Compile Include="Model\NavigationCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="package.bat" />
+    <None Include="Simplic.Navigation.Command.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

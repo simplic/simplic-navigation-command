@@ -7,6 +7,11 @@ namespace Simplic.Navigation.Command.Service
     /// </summary>
     public class NavigationCommandService : INavigationCommandService
     {
+        /// <summary>
+        /// Execute command event
+        /// </summary>
+        public event ExecuteCommandEventHandler ExecuteCommand;
+
         private List<NavigationCommand> commands = new List<NavigationCommand>();
 
         /// <summary>
@@ -26,6 +31,25 @@ namespace Simplic.Navigation.Command.Service
         {
             if (commands.Contains(command))
                 commands.Remove(command);
+        }
+
+        /// <summary>
+        /// Execute command
+        /// </summary>
+        /// <param name="command">Command to execute</param>
+        /// <param name="arguments">Command arguments</param>
+        /// <returns>Execution result</returns>
+        public ExecuteCommandResult Execute(NavigationCommand command, IList<string> arguments)
+        {
+            var args = new ExecuteCommandEventArgs
+            {
+                Arguments = arguments ?? new List<string>(),
+                Command = command
+            };
+
+            ExecuteCommand?.Invoke(this, args);
+
+            return args.Result;
         }
 
         /// <summary>

@@ -51,5 +51,9 @@
       <Name>Simplic.Navigation.Command</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="package.bat" />
+    <None Include="Simplic.Navigation.Command.Service.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
