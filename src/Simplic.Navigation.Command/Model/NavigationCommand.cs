@@ -28,8 +28,8 @@ namespace Simplic.Navigation.Command
         public bool HasArguments { get; set; }
 
         /// <summary>
-        /// Gets or sets the icon name
+        /// Gets or sets the icon id
         /// </summary>
-        public string IconName { get; set; }
+        public Guid IconId { get; set; }
     }
 }

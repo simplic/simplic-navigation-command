@@ -54,4 +54,7 @@
     <None Include="Simplic.Navigation.Command.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).dll" "$(SolutionDir)..\..\simplic-framework\src\Simplic.Main\bin\Debug\" /F /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

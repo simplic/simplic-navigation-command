@@ -83,15 +83,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NoFilterRadAutoCompleteBehavior.cs" />
     <Compile Include="NavigationCommandSelectorConfiguration.cs" />
     <Compile Include="NavigationCommandItem.cs" />
-    <Compile Include="NavgationCommandSelector.xaml.cs">
-      <DependentUpon>NavgationCommandSelector.xaml</DependentUpon>
+    <Compile Include="NavigationCommandSelector.xaml.cs">
+      <DependentUpon>NavigationCommandSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="NavgationCommandSelector.xaml">
+    <Page Include="NavigationCommandSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,4 +109,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).dll" "$(SolutionDir)..\..\simplic-framework\src\Simplic.Main\bin\Debug\" /F /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

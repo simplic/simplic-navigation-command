@@ -1,4 +1,6 @@
-﻿using Simplic.UI.MVC;
+﻿using Simplic.Icon;
+using Simplic.UI.MVC;
+using System.Windows.Media.Imaging;
 
 namespace Simplic.Navigation.Command.UI
 {
@@ -7,13 +9,18 @@ namespace Simplic.Navigation.Command.UI
     /// </summary>
     public class NavigationCommandItem : ViewModelBase
     {
+        private BitmapImage iconImage;
+        private IIconService iconService;
+
         /// <summary>
         /// Initialize command
         /// </summary>
         /// <param name="command"></param>
-        public NavigationCommandItem(NavigationCommand command)
+        /// <param name="iconService"></param>
+        public NavigationCommandItem(NavigationCommand command, IIconService iconService)
         {
             this.Command = command;
+            this.iconService = iconService;
         }
 
         /// <summary>
@@ -25,6 +32,22 @@ namespace Simplic.Navigation.Command.UI
         /// Gets the current command instance
         /// </summary>
         public NavigationCommand Command { get; }
+
+        /// <summary>
+        /// Gets the icon image
+        /// </summary>
+        public BitmapImage IconImage
+        {
+            get
+            {
+                if (iconImage == null)
+                {
+                    iconImage = iconService.GetByIdAsImage(Command.IconId);
+                }
+
+                return iconImage;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the order number
