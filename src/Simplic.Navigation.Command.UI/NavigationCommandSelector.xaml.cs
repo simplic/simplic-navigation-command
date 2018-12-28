@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,6 +10,8 @@ namespace Simplic.Navigation.Command.UI
     /// </summary>
     public partial class NavigationCommandSelector : UserControl
     {
+        private INavigationCommandService service;
+
         /// <summary>
         /// Configuration viewmodel
         /// </summary>
@@ -22,11 +25,11 @@ namespace Simplic.Navigation.Command.UI
         /// <param name="e"></param>
         private static void ConfigurationChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var searchBox = (d as NavigationCommandSelector).restAutoCompleteBox;
+            var searchBox = (d as NavigationCommandSelector).commandAutoCompleteBox;
             searchBox.DataContext = e.NewValue;
         }
-
-        private bool inFocusScope;
+        
+        private bool inSelectionChanged;
 
         /// <summary>
         /// Initialize selector
@@ -35,27 +38,45 @@ namespace Simplic.Navigation.Command.UI
         {
             InitializeComponent();
 
-            restAutoCompleteBox.FilteringBehavior = new NoFilterRadAutoCompleteBehavior();
+            service = CommonServiceLocator.ServiceLocator.Current.GetInstance<INavigationCommandService>();
+            commandAutoCompleteBox.FilteringBehavior = new NoFilterRadAutoCompleteBehavior();
+        }
 
-            GotFocus += (s, e) => 
-            {
-                if (!inFocusScope)
-                {
-                    inFocusScope = true;
-                    restAutoCompleteBox.Focus();
-                    inFocusScope = false;
-                }
-            };
+        /// <summary>
+        /// Override focus
+        /// </summary>
+        public new void Focus()
+        {
+            commandAutoCompleteBox.Focus();
+            Keyboard.Focus(commandAutoCompleteBox);
+        }
 
-            GotKeyboardFocus += (s, e) =>
+        /// <summary>
+        /// Selection changed command
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CommandSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!inSelectionChanged)
             {
-                if (!inFocusScope)
+                inSelectionChanged = true;
+
+                SelectorConfiguration.SearchText = "";
+                if (e.AddedItems != null)
                 {
-                    inFocusScope = true;
-                    Keyboard.Focus(restAutoCompleteBox);
-                    inFocusScope = false;
+                    foreach (var command in e.AddedItems.OfType<NavigationCommandItem>())
+                        service.Execute(command.Command, command.Arguments);
+
+                    e.AddedItems.Clear();
                 }
-            };
+
+                commandAutoCompleteBox.SelectedItem = null;
+                commandAutoCompleteBox.SelectedItems = null;
+                inSelectionChanged = false;
+            }
+
+            e.Handled = true;
         }
 
         /// <summary>

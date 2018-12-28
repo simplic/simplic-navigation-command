@@ -27,7 +27,7 @@ namespace Simplic.Navigation.Command.UI
             searchService = ServiceLocator.Current.GetInstance<INavigationCommandSearchService>();
             iconService = ServiceLocator.Current.GetInstance<IIconService>();
 
-            AvailableCommands = new List<NavigationCommand>();
+            AvailableCommands = new List<NavigationCommandSearchResult>();
 
             Items = new ObservableCollection<NavigationCommandItem>();
 
@@ -36,22 +36,13 @@ namespace Simplic.Navigation.Command.UI
             ItemsViewSource.Filter += (s, e) =>
             {
                 var item = e.Item as NavigationCommandItem;
-                e.Accepted = AvailableCommands.Contains(item.Command);
+                e.Accepted = AvailableCommands.Any(x => x.Command == item.Command);
             };
 
             // Set order index
             ItemsViewSource.SortDescriptions.Add(new System.ComponentModel.SortDescription(nameof(NavigationCommandItem.OrderNr), System.ComponentModel.ListSortDirection.Ascending));
         }
-
-        /// <summary>
-        /// Reset the order number
-        /// </summary>
-        private void ResetItemOrderNumber()
-        {
-            foreach (var command in Items)
-                command.OrderNr = 99999;
-        }
-
+        
         /// <summary>
         /// Gets or sets the available items
         /// </summary>
@@ -65,7 +56,7 @@ namespace Simplic.Navigation.Command.UI
         /// <summary>
         /// Gets or sets the currently available commands
         /// </summary>
-        public IList<NavigationCommand> AvailableCommands { get; set; }
+        public IList<NavigationCommandSearchResult> AvailableCommands { get; set; }
 
         /// <summary>
         /// Gets or sets the search text
@@ -76,30 +67,24 @@ namespace Simplic.Navigation.Command.UI
             set
             {
                 searchText = value;
+                Items.Clear();
 
-                if (string.IsNullOrWhiteSpace(searchText))
-                {
-                    Items.Clear();
-                }
-                else
+                if (!string.IsNullOrWhiteSpace(searchText))
                 {
                     // Search
-                    AvailableCommands = searchService.Search(searchText).Select(x => x.Command).ToList();
+                    AvailableCommands = searchService.Search(searchText);
 
                     // Add available items which will be filtered later.
-                    if (Items.Count == 0)
-                    {
-                        foreach (var command in AvailableCommands)
-                            Items.Add(new NavigationCommandItem(command, iconService) { Parent = this });
-                    }
-
-                    ResetItemOrderNumber();
-
+                    foreach (var command in AvailableCommands)
+                        Items.Add(new NavigationCommandItem(command.Command, iconService) { Parent = this });
+                                        
                     // Sort items
                     int i = 0;
                     foreach (var command in AvailableCommands)
                     {
-                        var item = Items.FirstOrDefault(x => x.Command == command);
+                        var item = Items.FirstOrDefault(x => x.Command == command.Command);
+                        item.Arguments = command.Arguments;
+
                         if (item != null)
                             item.OrderNr = i;
                         i++;

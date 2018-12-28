@@ -1,5 +1,6 @@
 ﻿using Simplic.Icon;
 using Simplic.UI.MVC;
+using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
 namespace Simplic.Navigation.Command.UI
@@ -26,12 +27,26 @@ namespace Simplic.Navigation.Command.UI
         /// <summary>
         /// Get the display name
         /// </summary>
-        public string DisplayName { get => $"{Command.Name} ({Command.Command})"; }
+        public string DisplayName
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Command.Command))
+                    return Command.Name;
+
+                return $"{Command.Name} ({Command.Command})";
+            }
+        }
 
         /// <summary>
         /// Gets the current command instance
         /// </summary>
         public NavigationCommand Command { get; }
+
+        /// <summary>
+        /// Gets or sets the command arguments
+        /// </summary>
+        public IList<string> Arguments { get; set; }
 
         /// <summary>
         /// Gets the icon image

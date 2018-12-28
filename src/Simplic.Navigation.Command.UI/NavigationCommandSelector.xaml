@@ -8,19 +8,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <telerik:RadAutoCompleteBox WatermarkContent="Input navigation command..." VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-								x:Name="restAutoCompleteBox"
+								x:Name="commandAutoCompleteBox"
 								SelectionMode="Single"
 								TextSearchMode="Contains"
 								AutoCompleteMode="Suggest"
                                 TextSearchPath="DisplayName"
+                                Focusable="True"
+                                SelectionChanged="CommandSelectionChanged"
 								ItemsSource="{Binding ItemsViewSource.View}"
                                 SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 NoResultsContent="No command found.">
         <telerik:RadAutoCompleteBox.DropDownItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{Binding IconImage}" Height="16" Width="16" />
-                    <TextBlock Text="{Binding DisplayName}" />
+                    <Image Margin="0,0,3,0" Source="{Binding IconImage}" VerticalAlignment="Center" Height="16" Width="16" />
+                    <TextBlock Margin="0" VerticalAlignment="Center" Text="{Binding DisplayName}" />
                 </StackPanel>
             </DataTemplate>
         </telerik:RadAutoCompleteBox.DropDownItemTemplate>
