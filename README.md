@@ -4,4 +4,4 @@ This repository contains everything about the simplic navigation command system.
 
 To register commands use `INavigationCommandService`. To search commands use `INavigationCommandSearchService`. A command is an instance of `NavigationCommand`.
 
-A more detailed documentation is available at the [https://simplic.github.io/dev/csharp/framework/navigation%20commands/intro.html](simplic documentation site).
+A more detailed documentation is available at the [simplic documentation site](https://simplic.github.io/dev/csharp/framework/navigation%20commands/intro.html).
