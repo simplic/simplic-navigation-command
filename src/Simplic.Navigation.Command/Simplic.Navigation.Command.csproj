@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Interface\INavigationCommandSearchService.cs" />
     <Compile Include="Interface\INavigationCommandService.cs" />
+    <Compile Include="Model\ExecutionFailedArgs.cs" />
     <Compile Include="Model\ExecuteCommandEventArgs.cs" />
     <Compile Include="Model\ExecuteCommandResult.cs" />
     <Compile Include="Model\NavigationCommandSearchResult.cs" />

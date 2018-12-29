@@ -10,6 +10,13 @@ namespace Simplic.Navigation.Command
     public delegate void ExecuteCommandEventHandler(object sender, ExecuteCommandEventArgs args);
 
     /// <summary>
+    /// Execution failed event handler
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    public delegate void ExecutionFailedEventHandler(object sender, ExecutionFailedArgs args);
+
+    /// <summary>
     /// Command service
     /// </summary>
     public interface INavigationCommandService
@@ -18,6 +25,11 @@ namespace Simplic.Navigation.Command
         /// Execute command event
         /// </summary>
         event ExecuteCommandEventHandler ExecuteCommand;
+
+        /// <summary>
+        /// Execution failed
+        /// </summary>
+        event ExecutionFailedEventHandler ExecutionFailed;
 
         /// <summary>
         /// Register a command

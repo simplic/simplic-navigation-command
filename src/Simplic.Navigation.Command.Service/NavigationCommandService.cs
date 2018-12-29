@@ -12,6 +12,11 @@ namespace Simplic.Navigation.Command.Service
         /// </summary>
         public event ExecuteCommandEventHandler ExecuteCommand;
 
+        /// <summary>
+        /// Execution failed
+        /// </summary>
+        public event ExecutionFailedEventHandler ExecutionFailed;
+
         private List<NavigationCommand> commands = new List<NavigationCommand>();
 
         /// <summary>
@@ -48,6 +53,16 @@ namespace Simplic.Navigation.Command.Service
             };
 
             ExecuteCommand?.Invoke(this, args);
+
+            if (args.Result.ExecutionFailed)
+            {
+                ExecutionFailed?.Invoke(this, new ExecutionFailedArgs
+                {
+                    Arguments = args.Arguments,
+                    Command = args.Command,
+                    ErrorMessage = args.Result.ErrorMessage
+                });
+            }
 
             return args.Result;
         }

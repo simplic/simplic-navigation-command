@@ -1,6 +1,7 @@
 ﻿using Simplic.Icon;
 using Simplic.UI.MVC;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace Simplic.Navigation.Command.UI
@@ -61,6 +62,17 @@ namespace Simplic.Navigation.Command.UI
                 }
 
                 return iconImage;
+            }
+        }
+
+        /// <summary>
+        /// Gets the parameter visibility
+        /// </summary>
+        public Visibility ParameterImageVisibility
+        {
+            get
+            {
+                return Command.HasArguments ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
