@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.136
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Navigation.Command.Service", "Simplic.Navigation.Command.Service\Simplic.Navigation.Command.Service.csproj", "{6857229A-6D32-42DB-9188-6672346156F5}"
 EndProject
@@ -9,9 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Navigation.Command.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Navigation.Command", "Simplic.Navigation.Command\Simplic.Navigation.Command.csproj", "{82DF625C-A67D-4ECF-9A82-D23CD93C40CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Navigation.Command.Test", "Simplic.Navigation.Command.Test\Simplic.Navigation.Command.Test.csproj", "{68DC50C1-27D2-47EC-9347-E541D713715B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{A463F40B-4903-4D3E-A19E-6DFAC93987A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ENV", "ENV", "{569580FF-EF48-4D5B-96A9-93D6AA27346B}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Navigation.Command.Test", "..\test\Simplic.Navigation.Command.Test\Simplic.Navigation.Command.Test.csproj", "{68DC50C1-27D2-47EC-9347-E541D713715B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
