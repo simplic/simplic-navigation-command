@@ -71,13 +71,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommonServiceLocator">
-      <Version>2.0.4</Version>
+      <Version>2.0.5</Version>
     </PackageReference>
     <PackageReference Include="Simplic.CoreLib">
       <Version>6.16.18.1125</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Icon">
       <Version>6.0.18.620</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Icon.UI">
+      <Version>6.1.18.917</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.UI">
+      <Version>7.2.120.329</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.for.Wpf.Xaml">
       <Version>2020.1.218</Version>
@@ -88,6 +94,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)$(TargetName).dll" "$(SolutionDir)..\..\simplic-framework\src\Simplic.Main\bin\Debug\" /F /Y</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
