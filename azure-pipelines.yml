@@ -40,7 +40,7 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\Simplic.Navigation.Command.Test
+      **\Simplic.Navigation.Command.Test.dll
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: 'test'
