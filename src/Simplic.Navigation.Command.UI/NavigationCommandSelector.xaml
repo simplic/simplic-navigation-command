@@ -25,10 +25,14 @@
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="20" />
                     </Grid.ColumnDefinitions>
                     <Image Margin="0,0,3,0" Grid.Column="0" Source="{Binding IconImage}" VerticalAlignment="Center" Height="16" Width="16" />
                     <TextBlock Margin="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding DisplayName}" />
                     <Image Margin="0,0,3,0" Visibility="{Binding ParameterImageVisibility}" Grid.Column="2" Source="{simplic:Icon Name=navcommand_parameter_16x}" VerticalAlignment="Center" Height="16" Width="16" />
+                    <Button Margin="0,0,3,0" Command="{Binding DocumentationCommand}" Visibility="{Binding DocumentationVisibility}" Grid.Column="3" VerticalAlignment="Center">
+                        <Image Source="{simplic:Icon Name=StatusAnnotations_Information_16xSM}" Height="16" Width="16" />
+                    </Button>
                 </Grid>
             </DataTemplate>
         </telerik:RadAutoCompleteBox.DropDownItemTemplate>
