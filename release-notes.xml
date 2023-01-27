@@ -1,2 +1,5 @@
 <ReleaseNotes>
+	<ChangeSet>
+		<Change type="feature">Adds an "i" symbol to open the documentation provided in the NavigationCommand.</Change>
+	</ChangeSet>
 </ReleaseNotes>
