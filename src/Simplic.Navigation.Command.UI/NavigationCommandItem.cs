@@ -100,7 +100,7 @@ namespace Simplic.Navigation.Command.UI
         /// <summary>
         /// Gets whether the documentation "i" is visible
         /// </summary>
-        public bool DocumentationVisibility { get => !string.IsNullOrWhiteSpace(Command.DocumentationLink); }
+        public Visibility DocumentationVisibility { get => string.IsNullOrWhiteSpace(Command.DocumentationLink) ? Visibility.Collapsed : Visibility.Visible; }
 
         /// <summary>
         /// Gets or sets the command that opens the documentation
