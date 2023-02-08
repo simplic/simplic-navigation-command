@@ -1,6 +1,8 @@
 ﻿using Simplic.Icon;
+using Simplic.Studio.UI;
 using Simplic.UI.MVC;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -21,8 +23,22 @@ namespace Simplic.Navigation.Command.UI
         /// <param name="iconService"></param>
         public NavigationCommandItem(NavigationCommand command, IIconService iconService)
         {
-            this.Command = command;
+            Command = command;
+            DocumentationCommand = new RelayCommand(OpenDocumentation);
             this.iconService = iconService;
+        }
+
+        private void OpenDocumentation(object param)
+        {
+            try
+            {
+                // We need to discuss this
+                Process.Start(Command.DocumentationLink);
+            }
+            catch
+            {
+                LocalizedMessageBox.Show("documentation_open_failed", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -80,5 +96,15 @@ namespace Simplic.Navigation.Command.UI
         /// Gets or sets the order number
         /// </summary>
         public int OrderNr { get; set; }
+
+        /// <summary>
+        /// Gets whether the documentation "i" is visible
+        /// </summary>
+        public Visibility DocumentationVisibility { get => string.IsNullOrWhiteSpace(Command.DocumentationLink) ? Visibility.Collapsed : Visibility.Visible; }
+
+        /// <summary>
+        /// Gets or sets the command that opens the documentation
+        /// </summary>
+        public RelayCommand DocumentationCommand { get; set; }
     }
 }

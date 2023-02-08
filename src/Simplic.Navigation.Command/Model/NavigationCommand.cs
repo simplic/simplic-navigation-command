@@ -31,5 +31,10 @@ namespace Simplic.Navigation.Command
         /// Gets or sets the icon id
         /// </summary>
         public Guid IconId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the link that should be opened when accessing the documentation
+        /// </summary>
+        public string DocumentationLink { get; set; }
     }
 }

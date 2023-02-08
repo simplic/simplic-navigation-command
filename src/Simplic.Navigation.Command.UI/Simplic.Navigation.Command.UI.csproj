@@ -82,8 +82,11 @@
     <PackageReference Include="Simplic.Icon.UI">
       <Version>6.1.18.917</Version>
     </PackageReference>
+    <PackageReference Include="Simplic.Studio.UI">
+      <Version>1.7.23.116</Version>
+    </PackageReference>
     <PackageReference Include="Simplic.UI">
-      <Version>7.2.120.329</Version>
+      <Version>7.5.23.116</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.for.Wpf.Xaml">
       <Version>2020.1.218</Version>
