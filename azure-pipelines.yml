@@ -6,67 +6,65 @@ trigger:
   paths:
     include:
       - src/*
-      - test/*
       - azure-pipelines.yml
-
 pr:
   branches:
     include:
       - "*"
-
 pool:
   vmImage: "windows-latest"
 
 variables:
-  buildConfiguration: "Release"
+- group: simplic-deployment
+- group: simplic-deployment-dev01
+- name: buildConfiguration
+  value: "Release"
+
 resources:
   repositories:
     - repository: infrastructure
       type: github
       name: simplic/build-infrastructure
       endpoint: simplic-bot
+
 steps:
+
+  - checkout: self
+    persistCredentials: true
+
   - task: NuGetToolInstaller@1
     inputs:
-      versionSpec: "5.x"
+      versionSpec: 5.x
   - task: NuGetCommand@2
     inputs:
-      command: "restore"
+      command: restore
       restoreSolution: "**/*.sln"
-      feedsToUse: "select"
-      vstsFeed: "f7087ef5-bf6f-48b2-8b8b-5e513f4a7a9e"
-  - ${{ if not(eq(variables['Build.Reason'], 'PullRequest')) }}:
-      - template: version-number-update-template.yml@infrastructure
-        parameters:
-          connection_string: $(connection_string)
-          git_user: $(git_user)
-          git_pass: $(git_pass)
-          branch_name: ${{ replace(variables['Build.SourceBranch'], 'refs/heads/', '') }}
+      feedsToUse: select
+      vstsFeed: f7087ef5-bf6f-48b2-8b8b-5e513f4a7a9e
   - task: MSBuild@1
     inputs:
       solution: "**/*.sln"
-      configuration: "$(buildConfiguration)"
+      configuration: $(buildConfiguration)
 
-  - task: VSTest@2
-    inputs:
-      testSelector: "testAssemblies"
-      testAssemblyVer2: |
-        **\Simplic.Navigation.Command.Test.dll
-        !**\*TestAdapter.dll
-        !**\obj\**
-      searchFolder: "test"
+  - ${{ if not(eq(variables['Build.Reason'], 'PullRequest')) }}:
+      - template: version-number-update-token-template.yml@infrastructure
+        parameters:
+          connection_string: $(connection_string)
+          git_user: $(git_user)
+          git_token: $(git_token)
+          branch_name: ${{ replace(variables['Build.SourceBranch'], 'refs/heads/', '') }}
 
   - task: NuGetCommand@2
     inputs:
-      command: "pack"
-      packagesToPack: "src/Simplic.Navigation.Command**/*.csproj"
-      configuration: "$(buildConfiguration)"
+      command: pack
+      packagesToPack: src/Simplic.Navigation.Command**/*.csproj;!src/Simplic.Navigation.Command.Test/Simplic.Navigation.Command.Test.csproj
+      configuration: $(buildConfiguration)
       versioningScheme: "off"
-
   - task: NuGetCommand@2
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     inputs:
-      command: "push"
-      packagesToPush: "$(Build.ArtifactStagingDirectory)/Simplic.Navigation.Command.*.nupkg;!**/Simplic.Navigation.Command.*.symbols.nupkg"
-      nuGetFeedType: "internal"
-      publishVstsFeed: "f7087ef5-bf6f-48b2-8b8b-5e513f4a7a9e"
+      command: push
+      packagesToPush: $(Build.ArtifactStagingDirectory)/Simplic.Navigation.Command.*.nupkg;!$(Build.ArtifactStagingDirectory)/Simplic.Navigation.Command.*.symbols.nupkg
+      nuGetFeedType: internal
+      publishVstsFeed: f7087ef5-bf6f-48b2-8b8b-5e513f4a7a9e
       allowPackageConflicts: true
