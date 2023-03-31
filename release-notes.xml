@@ -1,5 +1,5 @@
 <ReleaseNotes>
-	<ChangeSet>
+	<ChangeSet guid="dd15ad2b-63bd-47cf-8d1b-8b7b1c4279bb">
 		<Change type="feature">Adds an "i" symbol to open the documentation provided in the NavigationCommand.</Change>
 	</ChangeSet>
 </ReleaseNotes>
